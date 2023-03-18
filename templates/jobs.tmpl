@@ -1,0 +1,22 @@
+You're at /jobs!
+
+Jobs:
+
+<table>
+<tr>
+<td>Prompt</td>
+<td>Status</td>
+<td>Standard Output</td>
+<td>Standard Error</td>
+</tr>
+
+{{ range .rows }}
+<tr>
+<td><pre> {{ .Prompt }} </pre></td>
+<td>{{ .Status }}</td>
+<td><pre> {{ .Stdout }} </pre></td>
+<td><pre> {{ .Stderr }} </pre></td>
+</tr>
+{{ end }} 
+</table>
+
