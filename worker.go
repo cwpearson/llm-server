@@ -6,7 +6,6 @@ import (
 	"io"
 	"os/exec"
 
-	"github.com/google/shlex"
 	"github.com/jmoiron/sqlx"
 )
 
@@ -26,15 +25,10 @@ func (w Worker) run_job(def Definition) {
 	job := Job{def, Result{}, status_pending}
 	set_status(w.db, def.id, job.status)
 
-	// split command
-	parts, err := shlex.Split(def.Prompt)
-	if err != nil {
-		set_status(w.db, def.id, status_error)
-		return
-	}
-
 	// construct command
-	cmd := exec.Command(parts[0], parts[1:]...)
+	cmd := exec.Command("./llama.cpp/main", 
+	"-m", "./llama.cpp/models/13B/ggml-model-q4_0.bin",
+	"-p", def.Prompt)
 
 	stderr, err := cmd.StderrPipe()
 	if err != nil {
