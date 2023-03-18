@@ -1,21 +1,32 @@
+<style>
+table {
+  width: 100%;
+  table-layout: fixed;
+}
+.stderr{ 
+  overflow: auto;
+  max-height: 250px;
+}
+</style>
+
 You're at /jobs!
 
 Jobs:
 
 <table>
 <tr>
-<td>Prompt</td>
-<td>Status</td>
-<td>Standard Output</td>
-<td>Standard Error</td>
+<th style="width:20%">Prompt</th>
+<th style="width:10%">Status</th>
+<th style="width:50%">Standard Output</th>
+<th style="width:20%">Standard Error</th>
 </tr>
 
 {{ range .rows }}
 <tr>
-<td><pre> {{ .Prompt }} </pre></td>
+<td>{{ .Prompt }}</td>
 <td>{{ .Status }}</td>
-<td><pre> {{ .Stdout }} </pre></td>
-<td><pre> {{ .Stderr }} </pre></td>
+<td>{{ .Stdout }}</td>
+<td><div class="stderr"><pre> {{ .Stderr }} </pre></div></td>
 </tr>
 {{ end }} 
 </table>
