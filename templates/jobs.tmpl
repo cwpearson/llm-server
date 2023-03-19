@@ -24,7 +24,7 @@ Jobs:
 {{ range .rows }}
 <tr>
 <td>{{ .Prompt }}</td>
-<td>{{ .Status }}</td>
+<td><a href="u/{{ .Username }}/job/{{ .Id }}">{{ .Status }} </a></td>
 <td>{{ .Stdout }}</td>
 <td><div class="stderr"><pre> {{ .Stderr }} </pre></div></td>
 </tr>

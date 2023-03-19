@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"os/exec"
+	"log"
 
 	"github.com/jmoiron/sqlx"
 )
@@ -26,8 +27,17 @@ func (w Worker) run_job(def Definition) {
 	set_status(w.db, def.id, job.status)
 
 	// construct command
+	// -n N, --n_predict N   number of tokens to predict (default: 128)
+	// --top_k N             top-k sampling (default: 40)
+	// --top_p N             top-p sampling (default: 0.9)
+	// --repeat_last_n N     last n tokens to consider for penalize (default: 64)
+	// --repeat_penalty N    penalize repeat sequence of tokens (default: 1.3)
+	// -c N, --ctx_size N    size of the prompt context (default: 512)
+	// --temp N              temperature (default: 0.8)
+	log.Printf("'%s'\n", def.Prompt)
 	cmd := exec.Command("./llama.cpp/main", 
-	"-m", "./llama.cpp/models/13B/ggml-model-q4_0.bin",
+	"--model", "./llama.cpp/models/13B/ggml-model-q4_0.bin",
+	"--threads", "8",
 	"-p", def.Prompt)
 
 	stderr, err := cmd.StderrPipe()

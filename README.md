@@ -1,3 +1,10 @@
+# LLM Server
+
+```
+export LLM_SERVER_REGISTRATION_SECRET="abc123"
+go run *.go
+```
+
 
 ## curl
 
